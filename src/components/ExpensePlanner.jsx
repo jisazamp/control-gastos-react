@@ -1,10 +1,20 @@
 import { useState } from 'react';
+import Alert from './common/Alert';
 
-const ExpensePlanner = () => {
-  const [budget, setBudget] = useState('');
+const ExpensePlanner = ({ budget, setBudget, setIsValidBudget }) => {
+  const [message, setMessage] = useState('');
 
-  const handleBudgetChange = (e) => {
-    setBudget(e.target.value);
+  const handleBudgetSubmit = (e) => {
+    e.preventDefault();
+
+    if (!budget || budget < 0) {
+      setMessage('No es un presupuesto válido');
+      setIsValidBudget(false);
+      return;
+    }
+
+    setMessage('');
+    setIsValidBudget(true);
   };
 
   return (
@@ -14,7 +24,7 @@ const ExpensePlanner = () => {
       </h1>
 
       <div className='bg-white w-11/12 lg:w-2/4 lg:h-64 lg:mt-6 lg:flex lg:flex-col lg:justify-center mx-auto rounded border shadow'>
-        <form>
+        <form onSubmit={handleBudgetSubmit}>
           <div className='py-2 flex flex-col'>
             <label
               className='text-sky-400 lg:text-xl font-semibold'
@@ -28,7 +38,7 @@ const ExpensePlanner = () => {
               type='number'
               value={budget}
               placeholder='Añade tu presupuesto'
-              onChange={handleBudgetChange}
+              onChange={(e) => setBudget(Number(e.target.value))}
             />
           </div>
 
@@ -38,6 +48,8 @@ const ExpensePlanner = () => {
           >
             Añadir
           </button>
+
+          {message && <Alert msg={'Presupuesto no válido.'} />}
         </form>
       </div>
     </section>
