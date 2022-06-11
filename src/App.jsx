@@ -1,5 +1,11 @@
+import ExpensePlanner from './components/ExpensePlanner';
+
 const App = () => {
-  return <div>Hola mundo</div>;
+  return (
+    <main className='container'>
+      <ExpensePlanner />
+    </main>
+  );
 };
 
 export default App;
