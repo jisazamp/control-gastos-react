@@ -26,8 +26,8 @@ const App = () => {
 
       {isValidBudget && (
         <div
-          className='fixed h-16 w-16 active:h-20 active:w-20 bottom-4 right-4 lg:bottom-8 lg:right-8 fill-sky-400 lg:cursor-pointer lg:hover:h-20 lg:hover:w-20
-      transition-all duration-200 ease-in stroke-white'
+          className='fixed h-16 w-16 active:h-20 active:w-20 bottom-2 right-3 lg:bottom-8 lg:right-8 fill-sky-400 lg:cursor-pointer lg:hover:h-20 lg:hover:w-20
+      transition-all duration-200 ease-in stroke-white md:cursor-pointer'
           onClick={handleNewExpense}
         >
           <svg

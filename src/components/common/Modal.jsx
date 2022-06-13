@@ -6,7 +6,7 @@ const Modal = ({ setModal }) => {
       {/* Close button */}
       <div
         onClick={() => setModal(false)}
-        className='fixed h-10 w-10 right-4 top-4 stroke-white'
+        className='fixed h-10 w-10 right-4 top-4 stroke-white cursor-pointer'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
