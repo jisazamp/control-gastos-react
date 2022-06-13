@@ -1,10 +1,16 @@
 import { useState } from 'react';
 import ExpensePlanner from './components/ExpensePlanner';
 import Expenses from './components/Expenses';
+import Modal from './components/common/Modal';
 
 const App = () => {
   const [budget, setBudget] = useState(0);
   const [isValidBudget, setIsValidBudget] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  const handleNewExpense = () => {
+    setModal(true);
+  };
 
   return (
     <main className='container'>
@@ -22,6 +28,7 @@ const App = () => {
         <div
           className='fixed h-16 w-16 active:h-20 active:w-20 bottom-4 right-4 lg:bottom-8 lg:right-8 fill-sky-400 lg:cursor-pointer lg:hover:h-20 lg:hover:w-20
       transition-all duration-200 ease-in stroke-white'
+          onClick={handleNewExpense}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -36,6 +43,8 @@ const App = () => {
           </svg>
         </div>
       )}
+
+      {modal && <Modal setModal={setModal} />}
     </main>
   );
 };
