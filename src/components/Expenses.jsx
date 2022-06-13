@@ -1,4 +1,11 @@
 const Expenses = ({ budget }) => {
+  const formatCurrency = (value) => {
+    return value.toLocaleString('es-es', {
+      style: 'currency',
+      currency: 'COP',
+    });
+  };
+
   return (
     <section className='w-screen h-40 lg:h-72 text-center text-white bg-sky-500'>
       <h1 className='font-bold text-xl lg:text-3xl uppercase py-3'>
@@ -15,16 +22,18 @@ const Expenses = ({ budget }) => {
           <button className='bg-fuchsia-600 lg:hover:bg-fuchsia-700 lg:transition-all lg:ease-in lg:duration-300 py-2 mt-3 w-11/12 max-w-md xl:w-full text-white uppercase font-bold rounded'>
             Resetear App
           </button>
-          <div className='w-full text-left xl:text-lg mt-3 px-4 xl:px-8'>
+          <div className='w-full max-w-md text-left xl:text-lg mt-3 px-4 sm:px-0'>
             <p>
-              <span className='text-sky-700 font-bold'>Presupuesto:</span> $
-              {budget}
+              <span className='text-sky-700 font-bold'>Presupuesto:</span>{' '}
+              {formatCurrency(budget)}
             </p>
             <p>
               <span className='text-sky-700 font-bold'>Disponible:</span>{' '}
+              {formatCurrency(0)}
             </p>
             <p>
               <span className='text-sky-700 font-bold'>Gastado:</span>{' '}
+              {formatCurrency(0)}
             </p>
           </div>
         </div>
