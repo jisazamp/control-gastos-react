@@ -2,11 +2,13 @@ import { useState } from 'react';
 import ExpensePlanner from './components/ExpensePlanner';
 import Expenses from './components/Expenses';
 import Modal from './components/common/Modal';
+import UserExpensesList from './UserExpensesList';
 
 const App = () => {
   const [budget, setBudget] = useState(0);
   const [isValidBudget, setIsValidBudget] = useState(false);
   const [modal, setModal] = useState(false);
+  const [expenses, setExpenses] = useState([]);
 
   const handleNewExpense = () => {
     setModal(true);
@@ -44,7 +46,17 @@ const App = () => {
         </div>
       )}
 
-      {modal && <Modal setModal={setModal} />}
+      {modal && (
+        <Modal
+          setModal={setModal}
+          expenses={expenses}
+          setExpenses={setExpenses}
+        />
+      )}
+
+      <div className='w-screen flex flex-col items-center'>
+        <UserExpensesList expenses={expenses} />
+      </div>
     </main>
   );
 };

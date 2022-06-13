@@ -1,16 +1,32 @@
 import { useState } from 'react';
+import Alert from './common/Alert';
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ expenses, setExpenses, setModal }) => {
   const [expense, setExpense] = useState({
     name: '',
     quantity: '',
     filter: '',
   });
 
+  const [message, setMessage] = useState('');
+
   const categories = ['Home', 'Food', 'Bills', 'Other'];
 
   const handleExpenseChange = (e) => {
     setExpense({ ...expense, [e.target.name]: e.target.value });
+  };
+
+  const handleExpenseSubmit = (e) => {
+    e.preventDefault();
+
+    if ([expense.name || expense.quantity || expense.filter].includes('')) {
+      setMessage('Todos los campos son obligatorios');
+      return;
+    }
+
+    setModal(false);
+    setMessage('');
+    setExpenses([...expenses, expense]);
   };
 
   return (
@@ -20,7 +36,7 @@ const ExpenseForm = () => {
       </h1>
       <hr className='border-none h-0.5 mt-2 w-3/4 mx-auto bg-sky-700' />
 
-      <form>
+      <form onSubmit={handleExpenseSubmit}>
         <div className='flex flex-col w-80 lg:w-1/3 mx-auto mt-4 space-y-3'>
           <label className='text-xl text-white font-semibold' htmlFor='name'>
             Nombre del gasto
@@ -66,7 +82,7 @@ const ExpenseForm = () => {
             onChange={handleExpenseChange}
             value={expense['filter']}
           >
-            <option value='' selected disabled hidden>
+            <option value='' defaultValue disabled hidden>
               -- Escoge una opción --
             </option>
             {categories.map((c) => (
@@ -85,6 +101,8 @@ const ExpenseForm = () => {
             Añadir
           </button>
         </div>
+
+        {message && <Alert msg={message} />}
       </form>
     </div>
   );

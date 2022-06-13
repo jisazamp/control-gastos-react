@@ -1,6 +1,6 @@
 import ExpenseForm from '../ExpenseForm';
 
-const Modal = ({ setModal }) => {
+const Modal = ({ expenses, setModal, setExpenses }) => {
   return (
     <div className='modal transition-all duration-300 ease-in'>
       {/* Close button */}
@@ -22,7 +22,11 @@ const Modal = ({ setModal }) => {
       </div>
 
       {/* Form */}
-      <ExpenseForm />
+      <ExpenseForm
+        expenses={expenses}
+        setExpenses={setExpenses}
+        setModal={setModal}
+      />
     </div>
   );
 };

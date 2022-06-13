@@ -13,6 +13,12 @@ body {
   min-height: 100vh;
 }
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 .modal {
   position: fixed;
   top: 0;
@@ -20,4 +26,16 @@ body {
   width: 100vw;
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.95);
+}
+
+@media (min-width: 700px) {
+  .card {
+    margin-top: 16rem;
+  }
+}
+
+@media (min-width: 1060px) {
+  .card {
+    margin-top: 9rem;
+  }
 }
