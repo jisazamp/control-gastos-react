@@ -29,11 +29,13 @@ select {
 }
 
 .form {
+  transform: translateY(-1rem);
   transition: all 400ms ease-in;
   opacity: 0;
 }
 
 .form-fade {
+  transform: translateY(0);
   opacity: 1;
 }
 

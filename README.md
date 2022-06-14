@@ -2,7 +2,7 @@
 
 Site that tracks expenses based on a budget and having categorization of the type of expense.
 
-Live preview: https://jisazamp.github.io/control-gastos-react
+Live preview: https://jpi-controlgastos.netlify.app
 
 ## Table of contents
 
