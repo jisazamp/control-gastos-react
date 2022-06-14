@@ -1,14 +1,14 @@
 {
   "name": "control-gastos",
-  "private": true,
-  "homepage": "https://jisazamp.github.io",
+  "private": false,
+  "homepage": "https://jisazamp.github.io/control-gastos-react/",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "prop-types": "^15.8.1",
