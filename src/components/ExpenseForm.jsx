@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Alert from './common/Alert';
 
-const ExpenseForm = ({ expenses, setExpenses, setModal }) => {
+const ExpenseForm = ({ animateModal, expenses, setExpenses, setModal }) => {
   const [expense, setExpense] = useState({
     name: '',
     quantity: '',
@@ -19,7 +19,7 @@ const ExpenseForm = ({ expenses, setExpenses, setModal }) => {
   const handleExpenseSubmit = (e) => {
     e.preventDefault();
 
-    if ([expense.name || expense.quantity || expense.filter].includes('')) {
+    if ([expense.name, expense.quantity, expense.filter].includes('')) {
       setMessage('Todos los campos son obligatorios');
       return;
     }
@@ -30,13 +30,16 @@ const ExpenseForm = ({ expenses, setExpenses, setModal }) => {
   };
 
   return (
-    <div className='z-[2000]'>
-      <h1 className='text-2xl lg:text-4xl uppercase text-white font-bold text-center mt-14'>
+    <div className='z-[1000]'>
+      <legend className='text-2xl mx-auto lg:text-4xl uppercase text-white font-bold text-center mt-14'>
         Nuevo gasto
-      </h1>
+      </legend>
       <hr className='border-none h-0.5 mt-2 w-3/4 mx-auto bg-sky-700' />
 
-      <form onSubmit={handleExpenseSubmit}>
+      <form
+        className={`form ${animateModal && 'form-fade'}`}
+        onSubmit={handleExpenseSubmit}
+      >
         <div className='flex flex-col w-80 lg:w-1/3 mx-auto mt-4 space-y-3'>
           <label className='text-xl text-white font-semibold' htmlFor='name'>
             Nombre del gasto
@@ -102,7 +105,9 @@ const ExpenseForm = ({ expenses, setExpenses, setModal }) => {
           </button>
         </div>
 
-        {message && <Alert msg={message} />}
+        <div className='mx-auto max-w-xl text-center'>
+          {message && <Alert msg={message} />}
+        </div>
       </form>
     </div>
   );

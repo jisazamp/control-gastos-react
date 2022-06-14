@@ -2,16 +2,18 @@ import { useState } from 'react';
 import ExpensePlanner from './components/ExpensePlanner';
 import Expenses from './components/Expenses';
 import Modal from './components/common/Modal';
-import UserExpensesList from './UserExpensesList';
+import UserExpensesList from './components/UserExpensesList';
 
 const App = () => {
   const [budget, setBudget] = useState(0);
   const [isValidBudget, setIsValidBudget] = useState(false);
   const [modal, setModal] = useState(false);
+  const [animateModal, setAnimateModal] = useState(false);
   const [expenses, setExpenses] = useState([]);
 
   const handleNewExpense = () => {
     setModal(true);
+    setTimeout(() => setAnimateModal(true), 60);
   };
 
   return (
@@ -48,6 +50,8 @@ const App = () => {
 
       {modal && (
         <Modal
+          animateModal={animateModal}
+          setAnimateModal={setAnimateModal}
           setModal={setModal}
           expenses={expenses}
           setExpenses={setExpenses}

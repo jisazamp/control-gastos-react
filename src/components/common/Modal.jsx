@@ -1,11 +1,22 @@
 import ExpenseForm from '../ExpenseForm';
 
-const Modal = ({ expenses, setModal, setExpenses }) => {
+const Modal = ({
+  animateModal,
+  setAnimateModal,
+  expenses,
+  setModal,
+  setExpenses,
+}) => {
+  const handleModalClose = () => {
+    setModal(false);
+    setAnimateModal(false);
+  };
+
   return (
     <div className='modal transition-all duration-300 ease-in'>
       {/* Close button */}
       <div
-        onClick={() => setModal(false)}
+        onClick={handleModalClose}
         className='fixed h-10 w-10 right-4 top-4 stroke-white cursor-pointer'
       >
         <svg
@@ -23,6 +34,7 @@ const Modal = ({ expenses, setModal, setExpenses }) => {
 
       {/* Form */}
       <ExpenseForm
+        animateModal={animateModal}
         expenses={expenses}
         setExpenses={setExpenses}
         setModal={setModal}
