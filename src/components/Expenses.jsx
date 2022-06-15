@@ -1,4 +1,4 @@
-const Expenses = ({ budget }) => {
+const Expenses = ({ budget, spent, available }) => {
   const formatCurrency = (value) => {
     return value.toLocaleString('es-es', {
       style: 'currency',
@@ -29,11 +29,11 @@ const Expenses = ({ budget }) => {
             </p>
             <p>
               <span className='text-sky-700 font-bold'>Disponible:</span>{' '}
-              {formatCurrency(0)}
+              {formatCurrency(available)}
             </p>
             <p>
               <span className='text-sky-700 font-bold'>Gastado:</span>{' '}
-              {formatCurrency(0)}
+              {formatCurrency(spent)}
             </p>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ExpensePlanner from './components/ExpensePlanner';
 import Expenses from './components/Expenses';
 import Modal from './components/common/Modal';
@@ -7,10 +7,25 @@ import UserExpensesList from './components/UserExpensesList';
 const App = () => {
   // App State
   const [budget, setBudget] = useState(0);
+  const [spent, setSpent] = useState(0);
+  const [available, setAvailable] = useState(0);
   const [isValidBudget, setIsValidBudget] = useState(false);
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
   const [expenses, setExpenses] = useState([]);
+
+  useEffect(() => {
+    setAvailable(budget);
+  }, [isValidBudget]);
+
+  useEffect(() => {
+    const totalSpent = expenses.reduce((previous, current) => {
+      return Number(previous) + Number(current.quantity);
+    }, 0);
+
+    setSpent(totalSpent);
+    setAvailable(available - spent);
+  }, [expenses]);
 
   // On 'plus' button click
   const handleNewExpense = () => {
@@ -27,7 +42,7 @@ const App = () => {
     <main className='container'>
       {/* Show the Budget form or the Expenses summary depending on the state */}
       {isValidBudget ? (
-        <Expenses budget={budget} />
+        <Expenses budget={budget} spent={spent} available={available} />
       ) : (
         <ExpensePlanner
           budget={budget}

@@ -10,7 +10,7 @@ const UserExpense = ({ expense }) => {
   const imagesDictionary = {
     comida: FoodIcon,
     ahorro: SavingsIcon,
-    hogar: HouseIcon,
+    casa: HouseIcon,
     gastos: ExpensesIcon,
     ocio: EntertaimentIcon,
     salud: HealthIcon,
