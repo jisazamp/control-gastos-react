@@ -8,7 +8,7 @@ const Modal = ({
   setExpenses,
 }) => {
   const handleModalClose = () => {
-    setModal(false);
+    setTimeout(() => setModal(false), 500);
     setAnimateModal(false);
   };
 
@@ -38,6 +38,7 @@ const Modal = ({
         expenses={expenses}
         setExpenses={setExpenses}
         setModal={setModal}
+        setAnimateModal={setAnimateModal}
       />
     </div>
   );

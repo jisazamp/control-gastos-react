@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import Alert from './common/Alert';
+import { generateId } from '../helpers/index';
 
-const ExpenseForm = ({ animateModal, expenses, setExpenses, setModal }) => {
+const ExpenseForm = ({
+  animateModal,
+  expenses,
+  setExpenses,
+  setModal,
+  setAnimateModal,
+}) => {
   const [expense, setExpense] = useState({
     name: '',
     quantity: '',
@@ -10,7 +17,7 @@ const ExpenseForm = ({ animateModal, expenses, setExpenses, setModal }) => {
 
   const [message, setMessage] = useState('');
 
-  const categories = ['Home', 'Food', 'Bills', 'Other'];
+  const categories = ['Hogar', 'Comida', 'Cuentas', 'Otros'];
 
   const handleExpenseChange = (e) => {
     setExpense({ ...expense, [e.target.name]: e.target.value });
@@ -24,22 +31,24 @@ const ExpenseForm = ({ animateModal, expenses, setExpenses, setModal }) => {
       return;
     }
 
-    setModal(false);
-    setMessage('');
-    setExpenses([...expenses, expense]);
+    setTimeout(() => {
+      setModal(false);
+      setMessage('');
+      setAnimateModal(false);
+      setExpenses([...expenses, { id: generateId(), ...expense }]);
+    }, 100);
   };
 
   return (
     <div className='z-[1000]'>
-      <legend className='text-2xl mx-auto lg:text-4xl uppercase text-white font-bold text-center mt-14'>
-        Nuevo gasto
-      </legend>
-      <hr className='border-none h-0.5 mt-2 w-3/4 mx-auto bg-sky-700' />
-
       <form
         className={`form ${animateModal && 'form-fade'}`}
         onSubmit={handleExpenseSubmit}
       >
+        <legend className='text-2xl mx-auto lg:text-4xl uppercase text-white font-bold text-center mt-14'>
+          Nuevo gasto
+        </legend>
+        <hr className='border-none h-0.5 mt-2 w-3/4 mx-auto bg-sky-700' />
         <div className='flex flex-col w-80 lg:w-1/3 mx-auto mt-4 space-y-3'>
           <label className='text-xl text-white font-semibold' htmlFor='name'>
             Nombre del gasto
@@ -80,7 +89,7 @@ const ExpenseForm = ({ animateModal, expenses, setExpenses, setModal }) => {
           </label>
 
           <select
-            className='py-2 px-2 rounded-md'
+            className='py-2 px-2 rounded-md text-center'
             name='filter'
             onChange={handleExpenseChange}
             value={expense['filter']}

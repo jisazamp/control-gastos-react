@@ -13,7 +13,9 @@ const App = () => {
 
   const handleNewExpense = () => {
     setModal(true);
-    setTimeout(() => setAnimateModal(true), 60);
+    setTimeout(() => {
+      setAnimateModal(true);
+    }, 60);
   };
 
   return (
@@ -59,7 +61,7 @@ const App = () => {
       )}
 
       <div className='w-screen flex flex-col items-center'>
-        <UserExpensesList expenses={expenses} />
+        {isValidBudget && <UserExpensesList expenses={expenses} />}
       </div>
     </main>
   );
