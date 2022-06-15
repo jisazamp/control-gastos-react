@@ -16,7 +16,7 @@ const App = () => {
 
   useEffect(() => {
     setAvailable(budget);
-  }, [isValidBudget]);
+  }, [budget]);
 
   useEffect(() => {
     const totalSpent = expenses.reduce((previous, current) => {
@@ -24,8 +24,9 @@ const App = () => {
     }, 0);
 
     setSpent(totalSpent);
-    setAvailable(available - spent);
   }, [expenses]);
+
+  useEffect(() => setAvailable(available - spent), [spent]);
 
   // On 'plus' button click
   const handleNewExpense = () => {
