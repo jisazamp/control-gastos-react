@@ -17,7 +17,15 @@ const ExpenseForm = ({
 
   const [message, setMessage] = useState('');
 
-  const categories = ['Hogar', 'Comida', 'Cuentas', 'Otros'];
+  const categories = [
+    'Ahorro',
+    'Casa',
+    'Comida',
+    'Gastos',
+    'Ocio',
+    'Salud',
+    'Suscripciones',
+  ];
 
   const handleExpenseChange = (e) => {
     setExpense({ ...expense, [e.target.name]: e.target.value });
@@ -35,7 +43,10 @@ const ExpenseForm = ({
       setModal(false);
       setMessage('');
       setAnimateModal(false);
-      setExpenses([...expenses, { id: generateId(), ...expense }]);
+      setExpenses([
+        ...expenses,
+        { id: generateId(), date: Date.now(), ...expense },
+      ]);
     }, 100);
   };
 

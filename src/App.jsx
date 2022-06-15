@@ -5,14 +5,19 @@ import Modal from './components/common/Modal';
 import UserExpensesList from './components/UserExpensesList';
 
 const App = () => {
+  // App State
   const [budget, setBudget] = useState(0);
   const [isValidBudget, setIsValidBudget] = useState(false);
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
   const [expenses, setExpenses] = useState([]);
 
+  // On 'plus' button click
   const handleNewExpense = () => {
+    // Set the modal for the new expense form
     setModal(true);
+
+    // Set the animation for the modal fade
     setTimeout(() => {
       setAnimateModal(true);
     }, 60);
@@ -20,6 +25,7 @@ const App = () => {
 
   return (
     <main className='container'>
+      {/* Show the Budget form or the Expenses summary depending on the state */}
       {isValidBudget ? (
         <Expenses budget={budget} />
       ) : (
@@ -30,6 +36,7 @@ const App = () => {
         />
       )}
 
+      {/* Add new expense button */}
       {isValidBudget && (
         <div
           className='fixed h-16 w-16 active:h-20 active:w-20 bottom-2 right-3 lg:bottom-8 lg:right-8 fill-sky-400 lg:cursor-pointer lg:hover:h-20 lg:hover:w-20
@@ -50,6 +57,7 @@ const App = () => {
         </div>
       )}
 
+      {/* Show the modal component depending on the state */}
       {modal && (
         <Modal
           animateModal={animateModal}
@@ -60,6 +68,7 @@ const App = () => {
         />
       )}
 
+      {/* User expenses list */}
       <div className='w-screen flex flex-col items-center'>
         {isValidBudget && <UserExpensesList expenses={expenses} />}
       </div>
