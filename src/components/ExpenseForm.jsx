@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Alert from './common/Alert';
 import { generateId } from '../helpers/index';
 
@@ -8,6 +8,8 @@ const ExpenseForm = ({
   setExpenses,
   setModal,
   setAnimateModal,
+  expenseEdit,
+  setEditExpense,
 }) => {
   const [expense, setExpense] = useState({
     name: '',
@@ -16,6 +18,12 @@ const ExpenseForm = ({
   });
 
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    if (Object.keys(expenseEdit).length > 0) {
+      setExpense(expenseEdit);
+    }
+  }, [expenseEdit]);
 
   const categories = [
     'Ahorro',
@@ -39,15 +47,36 @@ const ExpenseForm = ({
       return;
     }
 
+    // Check if its editing
+    if (Object.keys(expenseEdit).length > 0) {
+      // Check if item exists
+      const itemExist = expenses.find((e) => e.id === expenseEdit.id);
+      if (itemExist) {
+        const newExpenses = expenses.map((e) =>
+          expenseEdit.id === e.id ? expense : e
+        );
+        setExpenses(newExpenses);
+        setTimeout(() => {
+          setModal(false);
+          setMessage('');
+          setAnimateModal(false);
+          setEditExpense({});
+        }, 100);
+      }
+
+      return;
+    }
+
+    let expenseObject = { id: generateId(), date: Date.now(), ...expense };
+
     setTimeout(() => {
       setModal(false);
       setMessage('');
       setAnimateModal(false);
-      setExpenses([
-        ...expenses,
-        { id: generateId(), date: Date.now(), ...expense },
-      ]);
+      setEditExpense({});
+      setExpenses([...expenses, expenseObject]);
     }, 100);
+    return;
   };
 
   return (
@@ -57,7 +86,7 @@ const ExpenseForm = ({
         onSubmit={handleExpenseSubmit}
       >
         <legend className='text-2xl mx-auto lg:text-4xl uppercase text-white font-bold text-center mt-14'>
-          Nuevo gasto
+          {Object.keys(expenseEdit).length > 0 ? 'Editar gasto' : 'Nuevo gasto'}
         </legend>
         <hr className='border-none h-0.5 mt-2 w-3/4 mx-auto bg-sky-700' />
         <div className='flex flex-col w-80 lg:w-1/3 mx-auto mt-4 space-y-3'>
@@ -121,7 +150,7 @@ const ExpenseForm = ({
             type='submit'
             className='bg-sky-800 py-2 rounded-md text-white uppercase font-bold w-[90%] max-w-xl lg:hover:bg-sky-900 transition-all duration-200 ease-in'
           >
-            Añadir
+            {Object.keys(expenseEdit).length > 0 ? 'Editar' : 'Añadir'}
           </button>
         </div>
 

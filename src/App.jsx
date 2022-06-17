@@ -13,7 +13,9 @@ const App = () => {
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
   const [expenses, setExpenses] = useState([]);
+  const [editExpense, setEditExpense] = useState({});
 
+  // Listen for changes on the budget so we can calculate available and spent
   useEffect(() => {
     setAvailable(budget);
   }, [budget]);
@@ -28,6 +30,14 @@ const App = () => {
 
   useEffect(() => setAvailable(available - spent), [spent]);
 
+  useEffect(() => {
+    Object.keys(editExpense).length > 0 && setModal(true);
+
+    setTimeout(() => {
+      Object.keys(editExpense).length > 0 && setAnimateModal(true);
+    }, 60);
+  }, [editExpense]);
+
   // On 'plus' button click
   const handleNewExpense = () => {
     // Set the modal for the new expense form
@@ -38,6 +48,18 @@ const App = () => {
       setAnimateModal(true);
     }, 60);
   };
+
+  // Delete Expense Item
+  const handleExpenseDelete = (expense) => {
+    const response = window.confirm(
+      '¿Está seguro que desea eliminar este elemento?'
+    );
+
+    response && setExpenses(expenses.filter((e) => e.id !== expense.id));
+  };
+
+  // Edit expense
+  const handleExpenseEdit = (expense) => setEditExpense(expense);
 
   return (
     <main className='container'>
@@ -81,12 +103,20 @@ const App = () => {
           setModal={setModal}
           expenses={expenses}
           setExpenses={setExpenses}
+          expenseEdit={editExpense}
+          setEditExpense={setEditExpense}
         />
       )}
 
       {/* User expenses list */}
       <div className='w-screen flex flex-col items-center'>
-        {isValidBudget && <UserExpensesList expenses={expenses} />}
+        {isValidBudget && (
+          <UserExpensesList
+            expenses={expenses}
+            onExpenseDelete={handleExpenseDelete}
+            onExpenseEdit={handleExpenseEdit}
+          />
+        )}
       </div>
     </main>
   );

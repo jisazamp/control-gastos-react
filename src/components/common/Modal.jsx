@@ -6,9 +6,14 @@ const Modal = ({
   expenses,
   setModal,
   setExpenses,
+  expenseEdit,
+  setEditExpense,
 }) => {
   const handleModalClose = () => {
-    setTimeout(() => setModal(false), 500);
+    setTimeout(() => {
+      setModal(false);
+      setEditExpense({});
+    }, 500);
     setAnimateModal(false);
   };
 
@@ -39,6 +44,8 @@ const Modal = ({
         setExpenses={setExpenses}
         setModal={setModal}
         setAnimateModal={setAnimateModal}
+        expenseEdit={expenseEdit}
+        setEditExpense={setEditExpense}
       />
     </div>
   );
